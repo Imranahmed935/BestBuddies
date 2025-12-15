@@ -1,0 +1,31 @@
+enum Gender {
+  MALE
+  FEMALE
+}
+
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PlanStatus {
+  OPEN        
+  FULL       
+  COMPLETED   
+  CANCELED
+}
+
+enum RequestStatus {
+    PENDING
+    APPROVED
+    REJECTED  
+    CANCELED
+}

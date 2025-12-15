@@ -1,0 +1,31 @@
+model User {
+  id                    String            @id @default(uuid())
+  username              String?           @unique
+  email                 String            @unique
+  password              String
+  fullName              String
+  profileImage          String?
+  bio                   String?           @db.VarChar(500)
+  age                   Int?
+  gender                Gender?
+  currentLocation       String?          
+  travelInterests       String[]         
+  visitedCountries      String[]
+  userStatus            Status            @default(ACTIVE)
+  role                  Role              @default(USER)
+  verified              Boolean           @default(false) 
+  contactNumber         String?
+
+  rating                Int               @default(0)
+  subscriptionActive    Boolean           @default(false)
+  subscriptionExpiresAt DateTime?
+  payments              Payment[]
+  hostedPlans           TravelPlan[]      @relation("HostPlans")
+  joinedPlans           TravelPlan[]      @relation("PlanParticipants")
+  reviews               Review[]
+  lastLoginAt           DateTime?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  joinRequests JoinRequest[]
+  @@map("users")
+}

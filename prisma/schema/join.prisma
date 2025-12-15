@@ -1,0 +1,13 @@
+model JoinRequest {
+  id                    String    @id @default(uuid())
+  planId                String
+  plan                  TravelPlan @relation(fields: [planId], references: [id])
+  applicantId           String
+  applicant             User       @relation(fields: [applicantId], references: [id])
+  status                RequestStatus   @default(PENDING) 
+  message               String?
+  createdAt             DateTime  @default(now())
+
+  @@unique([planId, applicantId]) 
+  @@map("join_requests")
+}

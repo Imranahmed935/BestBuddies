@@ -1,0 +1,15 @@
+model Payment {
+  id                    String    @id @default(uuid())
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id])
+  amount                Float   
+  paymentGateway        String
+  transactionId         String?   @unique
+  paymentType           String   
+  status                String    
+
+  createdAt             DateTime  @default(now())
+
+  @@map("payments")
+}
+

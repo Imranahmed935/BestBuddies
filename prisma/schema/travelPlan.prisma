@@ -1,0 +1,35 @@
+model TravelPlan {
+  id              String     @id @default(uuid())
+  title           String
+  photoUrl       String?
+  destination     String
+  startDate       DateTime
+  endDate         DateTime
+  budget          Int        @default(0)
+  travelType      String?
+  description     String     @db.VarChar(1000)
+  ageLimit        Int?       
+  members         Int?        
+  stay            String?     
+  accommodationType String?
+  transportType   String?
+  mealPlan        String?
+  requiredDocuments String?  
+  included        String?    
+  excluded        String?  
+  meetingPoint    String?     
+  emergencyContact String?    
+  planStatus      PlanStatus @default(OPEN)
+  hostId          String
+  host            User       @relation("HostPlans", fields: [hostId], references: [id])
+  participants    User[]     @relation("PlanParticipants")
+  joinRequests    JoinRequest[]
+  reviews         Review[]
+
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@index([destination, startDate])
+  @@map("travel_plans")
+}
+
