@@ -4,6 +4,7 @@ import { prisma } from "../../shared/prisma";
 import httpStatus from "http-status";
 import bcrypt from "bcryptjs";
 import config from "../../../config";
+import { Secret } from "jsonwebtoken";
 
 const login = async (payload: { email: string; password: string }) => {
   const user = await prisma.user.findFirstOrThrow({
@@ -35,6 +36,28 @@ const login = async (payload: { email: string; password: string }) => {
   };
 };
 
+const getMe = async (cookies: any) => {
+  const accessToken = cookies.accessToken;
+
+  if (!accessToken) {
+    throw new ApiError(401, "Access Token not found");
+  }
+
+  const decodedData = jwtHelper.verifyToken(
+    accessToken,
+    config.jwt.jwt_secret as Secret
+  );
+
+  const userData = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: decodedData.email,
+    },
+  });
+
+  return userData;
+};
+
 export const authService = {
   login,
+  getMe
 };
