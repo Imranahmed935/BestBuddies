@@ -4,6 +4,7 @@ import sendResponse from "../../shared/sendResponse";
 import { authService } from "./auth.service";
 import httpStatus from "http-status";
 
+
 const login = catchAsync(async (req: Request, res: Response) => {
     const result = await authService.login(req.body);
     const { accessToken, refreshToken } = result;
