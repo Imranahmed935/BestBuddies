@@ -12,7 +12,6 @@ const createUser = async (req: Request) => {
       password: hashedPassword,
     },
   });
-
   return user;
 };
 
