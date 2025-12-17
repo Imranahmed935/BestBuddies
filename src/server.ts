@@ -1,6 +1,7 @@
 import {Server} from "http";
 import { app } from "./app";
 import dotenv from "dotenv";
+import seedAdmin from "./app/utils/seedAdmin";
 dotenv.config();
 
 async function runServer(){
@@ -15,5 +16,10 @@ async function runServer(){
     }
 }
 
- runServer()
+ 
+
+ (async () => {
+  await runServer();
+  await seedAdmin();
+})();
 
