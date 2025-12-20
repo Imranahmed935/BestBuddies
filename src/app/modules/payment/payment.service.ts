@@ -5,6 +5,7 @@ import Stripe from "stripe";
 
 const createCheckoutSession = async (payload: any) => {
   const { userId, planType } = payload;
+  console.log("console from",userId, planType)
   if (!userId || !planType) throw new Error("userId and planType are required");
 
   let priceId: string | undefined;
