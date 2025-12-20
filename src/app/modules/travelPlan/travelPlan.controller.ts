@@ -34,6 +34,16 @@ const getMyTravelPlan = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllTravelPlan = catchAsync(async (req: Request, res: Response) => {
+  const result = await travelPlanService.getAllTravelPlan();
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "My Travel Plan retrived Successfully!",
+    data: result,
+  });
+});
+
 const getTravelPlanById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   console.log("ID:", id);
@@ -85,4 +95,5 @@ export const travelPlanController = {
   getTravelPlanById,
   deletePlan,
   updatePlan,
+  getAllTravelPlan
 };

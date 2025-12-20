@@ -63,6 +63,15 @@ const getMyTravelPlan = async (id: string) => {
   return result;
 };
 
+const getAllTravelPlan = async () => {
+  const result = await prisma.travelPlan.findMany({
+    include:{
+      host:true
+    }
+  });
+  return result;
+};
+
 const getTravelPlanById = async (id: string) => {
   const result = await prisma.travelPlan.findUnique({
     where: { id: id },
@@ -131,5 +140,6 @@ export const travelPlanService = {
   getMyTravelPlan,
   getTravelPlanById,
   deletePlan,
-  updatePlan
+  updatePlan,
+  getAllTravelPlan
 };

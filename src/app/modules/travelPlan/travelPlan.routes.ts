@@ -6,6 +6,7 @@ import { fileUploader } from "../../helpers/imageUpload";
 
 const router = express.Router();
 
+router.get("/", travelPlanController.getAllTravelPlan);
 router.get("/my-plan/:id", travelPlanController.getMyTravelPlan);
 router.get("/:id", travelPlanController.getTravelPlanById);
 
@@ -18,7 +19,6 @@ router.post(
     return travelPlanController.createPlan(req, res, next);
   }
 );
-
 
 router.patch(
   "/:id",
