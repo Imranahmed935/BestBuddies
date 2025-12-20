@@ -1,0 +1,172 @@
+model Connection {
+  id         String           @id @default(uuid())
+  senderId   String
+  receiverId String
+  status     ConnectionStatus @default(PENDING)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  sender   User @relation("Sender", fields: [senderId], references: [id])
+  receiver User @relation("Receiver", fields: [receiverId], references: [id])
+
+  @@unique([senderId, receiverId])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PlanStatus {
+  OPEN
+  FULL
+  COMPLETED
+  CANCELED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELED
+}
+
+enum ConnectionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model JoinRequest {
+  id          String        @id @default(uuid())
+  planId      String
+  plan        TravelPlan    @relation(fields: [planId], references: [id])
+  applicantId String
+  applicant   User          @relation(fields: [applicantId], references: [id])
+  status      RequestStatus @default(PENDING)
+  message     String?
+  createdAt   DateTime      @default(now())
+
+  @@unique([planId, applicantId])
+  @@map("join_requests")
+}
+
+model Payment {
+  id             String  @id @default(uuid())
+  userId         String
+  user           User    @relation(fields: [userId], references: [id])
+  amount         Float
+  paymentGateway String
+  transactionId  String? @unique
+  paymentType    String
+  status         String
+
+  createdAt DateTime @default(now())
+
+  @@map("payments")
+}
+
+model Review {
+  id           String     @id @default(uuid())
+  rating       Int        @default(0)
+  comment      String
+  reviewer     User       @relation(fields: [reviewerId], references: [id])
+  reviewerId   String
+  travelPlan   TravelPlan @relation(fields: [travelPlanId], references: [id])
+  travelPlanId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("reviews")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model TravelPlan {
+  id                String        @id @default(uuid())
+  title             String
+  photoUrl          String?
+  destination       String
+  startDate         DateTime
+  endDate           DateTime
+  budget            Int           @default(0)
+  travelType        String?
+  description       String        @db.VarChar(1000)
+  ageLimit          Int?
+  members           Int?
+  stay              String?
+  accommodationType String?
+  transportType     String?
+  mealPlan          String?
+  requiredDocuments String?
+  included          String?
+  excluded          String?
+  meetingPoint      String?
+  emergencyContact  String?
+  planStatus        PlanStatus    @default(OPEN)
+  hostId            String
+  host              User          @relation("HostPlans", fields: [hostId], references: [id])
+  participants      User[]        @relation("PlanParticipants")
+  joinRequests      JoinRequest[]
+  reviews           Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([destination, startDate])
+  @@map("travel_plans")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  username         String?  @unique
+  email            String   @unique
+  password         String
+  fullName         String
+  profileImage     String?
+  bio              String?  @db.VarChar(500)
+  age              Int?
+  gender           Gender?
+  currentLocation  String?
+  travelInterests  String[]
+  visitedCountries String[]
+  userStatus       Status   @default(ACTIVE)
+  role             Role     @default(USER)
+  verified         Boolean  @default(false)
+  contactNumber    String?
+
+  rating                Int           @default(0)
+  subscriptionActive    Boolean       @default(false)
+  subscriptionExpiresAt DateTime?
+  payments              Payment[]
+  hostedPlans           TravelPlan[]  @relation("HostPlans")
+  joinedPlans           TravelPlan[]  @relation("PlanParticipants")
+  reviews               Review[]
+  lastLoginAt           DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  joinRequests          JoinRequest[]
+  sentRequests          Connection[]  @relation("Sender")
+  receivedRequests      Connection[]  @relation("Receiver")
+
+  @@map("users")
+}

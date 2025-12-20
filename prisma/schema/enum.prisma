@@ -29,3 +29,9 @@ enum RequestStatus {
     REJECTED  
     CANCELED
 }
+
+enum ConnectionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}

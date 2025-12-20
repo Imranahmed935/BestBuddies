@@ -27,5 +27,9 @@ model User {
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
   joinRequests JoinRequest[]
+
   @@map("users")
+  sentRequests     Connection[] @relation("Sender")
+  receivedRequests Connection[] @relation("Receiver")
+
 }

@@ -13,11 +13,12 @@ router.get("/", userController.getUserAllUser);
 
 router.post("/register", validateRequest(UserValidation.createUserSchema), userController.createUser);
 router.patch(
-  "/:id",
-  auth(Role.USER),
+  "/update/:id",
+  auth(Role.USER, Role.ADMIN),
   fileUploader.upload.single("file"),
   (req: Request, res: Response, next: NextFunction) => {
     if (req.body.data) {
+      console.log(req.body.data)
       req.body = JSON.parse(req.body.data);
     }
     return userController.updateProfile(req, res, next);
