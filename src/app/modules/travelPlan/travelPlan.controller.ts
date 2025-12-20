@@ -46,7 +46,7 @@ const getAllTravelPlan = catchAsync(async (req: Request, res: Response) => {
 
 const getTravelPlanById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log("ID:", id);
+
   const result = await travelPlanService.getTravelPlanById(id as string);
   sendResponse(res, {
     statusCode: 200,

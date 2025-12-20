@@ -36,8 +36,6 @@ const respondConnection = async (
     where: { id: connectionId },
   });
 
-  console.log(connection);
-
   if (!connection || connection.receiverId !== userId) {
     throw new Error("Unauthorized action");
   }
