@@ -85,6 +85,7 @@ export type PlanStatus = (typeof PlanStatus)[keyof typeof PlanStatus]
 
 
 export const RequestStatus: {
+  ACCEPTED: any;
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',

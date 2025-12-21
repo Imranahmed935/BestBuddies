@@ -5,10 +5,16 @@ import { travelPlanRoutes } from "../modules/travelPlan/travelPlan.routes";
 import { paymentRoutes } from "../modules/payment/payment.routes";
 import { reviewRoutes } from "../modules/review/review.routes";
 import { connectionRouter } from "../modules/connection/connection.route";
+import { adminRoutes } from "../modules/admin/admin.routes";
+import { joinRouter } from "../modules/join/join.routes";
 
 const router = express.Router();
 
 const moduleRoutes = [
+  {
+    path: "/admin",
+    route: adminRoutes,
+  },
   {
     path: "/user",
     route: UserRoutes,
@@ -33,6 +39,11 @@ const moduleRoutes = [
   {
     path: "/connection",
     route: connectionRouter,
+  },
+
+  {
+    path: "/join",
+    route: joinRouter,
   },
   
 ];
