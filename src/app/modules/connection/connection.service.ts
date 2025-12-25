@@ -1,6 +1,17 @@
 import { prisma } from "../../shared/prisma";
 
 
+const allConnection = async () => {
+  const result = await prisma.connection.findMany({
+    include:{
+      sender:true,
+      receiver:true,
+    }
+  })
+
+  return result;
+};
+
 const sendConnection = async (senderId: string, receiverId: string) => {
   if (senderId === receiverId) {
     throw new Error("You cannot connect with yourself");
@@ -82,4 +93,5 @@ export const ConnectionService = {
   respondConnection,
   myFriends,
   pendingRequests,
+  allConnection
 };

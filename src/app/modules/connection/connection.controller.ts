@@ -4,6 +4,18 @@ import sendResponse from "../../shared/sendResponse";
 import { IJWTPayload } from "../../types/common";
 
 
+const allConnection = async (req: Request, res: Response) => {
+  
+  const result = await ConnectionService.allConnection();
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Connection Retrived Successfully",
+    data: result,
+  });
+};
+
 const sendConnection = async (req: Request  & { user?: IJWTPayload }, res: Response) => {
   const senderId = req.user?.id; 
   const { receiverId } = req.body;
@@ -62,4 +74,5 @@ export const ConnectionController = {
   respondConnection,
   myFriends,
   pendingRequests,
+  allConnection
 };

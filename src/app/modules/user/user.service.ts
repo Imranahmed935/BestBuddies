@@ -33,8 +33,7 @@ const getUserAllUser = async () => {
 const updateProfile = async (req: Request) => {
   const { id } = req.params;
   const payload = req.body;
-  
-  
+
 
   let profileImage: string | undefined;
 

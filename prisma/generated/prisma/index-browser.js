@@ -138,6 +138,19 @@ exports.Prisma.JoinRequestScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  receiverId: 'receiverId',
+  senderId: 'senderId',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  metadata: 'metadata',
+  isRead: 'isRead',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PaymentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -216,6 +229,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -224,6 +242,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.ConnectionStatus = exports.$Enums.ConnectionStatus = {
   PENDING: 'PENDING',
@@ -235,7 +259,19 @@ exports.RequestStatus = exports.$Enums.RequestStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED',
-  CANCELED: 'CANCELED'
+  CANCELED: 'CANCELED',
+  ACCEPTED: 'ACCEPTED'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  FRIEND_REQUEST: 'FRIEND_REQUEST',
+  FRIEND_REQUEST_ACCEPTED: 'FRIEND_REQUEST_ACCEPTED',
+  FRIEND_REQUEST_REJECTED: 'FRIEND_REQUEST_REJECTED',
+  TRIP_JOIN_REQUEST: 'TRIP_JOIN_REQUEST',
+  TRIP_JOIN_ACCEPTED: 'TRIP_JOIN_ACCEPTED',
+  TRIP_JOIN_REJECTED: 'TRIP_JOIN_REJECTED',
+  MESSAGE: 'MESSAGE',
+  SYSTEM: 'SYSTEM'
 };
 
 exports.PlanStatus = exports.$Enums.PlanStatus = {
@@ -265,6 +301,7 @@ exports.Role = exports.$Enums.Role = {
 exports.Prisma.ModelName = {
   Connection: 'Connection',
   JoinRequest: 'JoinRequest',
+  Notification: 'Notification',
   Payment: 'Payment',
   Review: 'Review',
   TravelPlan: 'TravelPlan',

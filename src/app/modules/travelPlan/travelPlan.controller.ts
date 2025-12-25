@@ -7,7 +7,6 @@ import { IJWTPayload } from "../../types/common";
 const createPlan = catchAsync(
   async (req: Request & { user?: IJWTPayload }, res: Response) => {
     const hostId = req.user?.id;
-
     const result = await travelPlanService.createPlan(
       req.body,
       hostId!,

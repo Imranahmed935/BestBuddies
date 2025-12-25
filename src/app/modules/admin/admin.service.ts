@@ -14,7 +14,12 @@ const getAllUser = async () => {
 
 
 const getAllPayment = async () => {
-  const result = await prisma.payment.findMany();
+  const result = await prisma.payment.findMany({
+    include:{
+      user:true
+    }
+  });
+  
   return result;
 };
 

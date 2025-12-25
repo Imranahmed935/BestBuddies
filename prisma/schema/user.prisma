@@ -32,4 +32,6 @@ model User {
   sentRequests     Connection[] @relation("Sender")
   receivedRequests Connection[] @relation("Receiver")
 
+  notifications Notification[] @relation("UserNotifications")
+  sentNotifications Notification[] @relation("UserSentNotifications")
 }

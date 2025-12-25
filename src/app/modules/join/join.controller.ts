@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import sendResponse from "../../shared/sendResponse";
 import { IJWTPayload } from "../../types/common";
 import { JoinService } from "./join.service";
-import { RequestStatus } from "../../../../prisma/generated/prisma";
+
 
 
  const sendRequest = async (
@@ -12,7 +12,6 @@ import { RequestStatus } from "../../../../prisma/generated/prisma";
   try {
     const { travelId } = req.body;
     const applicantId = req.user?.id;
-
     if (!applicantId) {
       return res.status(401).json({
         success: false,

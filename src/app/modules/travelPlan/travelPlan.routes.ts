@@ -26,6 +26,7 @@ router.patch(
   fileUploader.upload.single("file"),
   (req: Request, res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
+    console.log(req.body.data)
     return travelPlanController.updatePlan(req, res, next);
   }
 );

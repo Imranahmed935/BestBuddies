@@ -121,6 +121,7 @@ const updatePlan = async (payload: any, id: string) => {
     where: { id },
     data: updateData,
   });
+  console.log(result)
 
   return result;
 };

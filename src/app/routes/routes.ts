@@ -7,6 +7,7 @@ import { reviewRoutes } from "../modules/review/review.routes";
 import { connectionRouter } from "../modules/connection/connection.route";
 import { adminRoutes } from "../modules/admin/admin.routes";
 import { joinRouter } from "../modules/join/join.routes";
+import { notificationRouter } from "../modules/notification/notification.routes";
 
 const router = express.Router();
 
@@ -44,6 +45,10 @@ const moduleRoutes = [
   {
     path: "/join",
     route: joinRouter,
+  },
+  {
+    path: "/notification",
+    route: notificationRouter,
   },
   
 ];

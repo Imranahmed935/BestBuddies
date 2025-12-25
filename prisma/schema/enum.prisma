@@ -28,6 +28,7 @@ enum RequestStatus {
     APPROVED
     REJECTED  
     CANCELED
+    ACCEPTED
 }
 
 enum ConnectionStatus {
@@ -35,3 +36,15 @@ enum ConnectionStatus {
   ACCEPTED
   REJECTED
 }
+
+enum NotificationType {
+  FRIEND_REQUEST
+  FRIEND_REQUEST_ACCEPTED
+  FRIEND_REQUEST_REJECTED
+  TRIP_JOIN_REQUEST
+  TRIP_JOIN_ACCEPTED
+  TRIP_JOIN_REJECTED
+  MESSAGE
+  SYSTEM
+}
+

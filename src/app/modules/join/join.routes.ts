@@ -4,7 +4,6 @@ import { Role } from "../../../../prisma/generated/prisma";
 import { JoinController } from "./join.controller";
 
 
-
 const router = express.Router();
 
 router.post("/send", auth(Role.ADMIN, Role.USER), JoinController.sendRequest);
