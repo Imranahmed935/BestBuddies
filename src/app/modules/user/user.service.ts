@@ -33,11 +33,8 @@ const getUserAllUser = async () => {
 const updateProfile = async (req: Request) => {
   const { id } = req.params;
   const payload = req.body;
-
-
   let profileImage: string | undefined;
 
- 
   if (req.file) {
     const uploaded = await fileUploader.uploadCloudinary(req.file);
     profileImage = uploaded?.secure_url;

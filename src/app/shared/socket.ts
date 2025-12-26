@@ -15,11 +15,9 @@ export const initSocket = (server: any) => {
 
   io.use((socket, next) => {
     const token = socket.handshake.auth?.token; 
-    console.log(token)
     if (!token) return next(new Error("Unauthorized"));
     try {
       const payload = jwtHelper.verifyToken(token, process.env.JWT_SECRET!)
-      console.log(payload)
       socket.data.userId = payload.id;  
       next();
     } catch (err) {

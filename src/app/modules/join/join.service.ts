@@ -73,6 +73,7 @@ const respondRequest = async (
   userId: string,
   action: "ACCEPT" | "REJECT"
 ) => {
+  console.log(requestId, action)
   const joinRequest = await prisma.joinRequest.findUnique({
     where: { id: requestId },
     include: {
@@ -112,7 +113,7 @@ const respondRequest = async (
           ? NotificationType.TRIP_JOIN_ACCEPTED
           : NotificationType.TRIP_JOIN_REJECTED,
       title: `Join Request ${action.toLowerCase()}`,
-      message: `Your request to join "${joinRequest.plan.title}" was ${action.toLowerCase()}`,
+      message: `Your request to join "${joinRequest.plan.title}" was accepted}`,
       metadata: {
         joinRequestId: requestId,
         planId: joinRequest.planId,

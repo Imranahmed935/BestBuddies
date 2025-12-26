@@ -15,7 +15,6 @@ model User {
   role                  Role              @default(USER)
   verified              Boolean           @default(false) 
   contactNumber         String?
-
   rating                Int               @default(0)
   subscriptionActive    Boolean           @default(false)
   subscriptionExpiresAt DateTime?

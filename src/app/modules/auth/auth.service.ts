@@ -57,7 +57,30 @@ const getMe = async (cookies: any) => {
   return userData;
 };
 
+ const changePassword = async (id: string, payload: { oldPassword: string; newPassword: string }) => {
+  const { oldPassword, newPassword } = payload;
+  const user = await prisma.user.findUnique({ where: { id } });
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const isPassMatch = await bcrypt.compare(oldPassword, user.password);
+  if (!isPassMatch) {
+    throw new Error("Old password is incorrect");
+  }
+
+  const hashedPass = await bcrypt.hash(newPassword, 10);
+
+  const updatedUser = await prisma.user.update({
+    where: { id: user.id },
+    data: { password: hashedPass },
+  });
+
+  return updatedUser;
+};
+
 export const authService = {
   login,
-  getMe
+  getMe,
+  changePassword
 };

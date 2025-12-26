@@ -59,6 +59,7 @@ import { JoinService } from "./join.service";
   try {
     const { requestId, action } = req.body;
     const userId = req.user?.id;
+    console.log(requestId, action)
 
     const result = await JoinService.respondRequest(
       requestId,

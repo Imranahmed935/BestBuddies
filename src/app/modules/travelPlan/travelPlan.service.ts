@@ -66,7 +66,8 @@ const getMyTravelPlan = async (id: string) => {
 const getAllTravelPlan = async () => {
   const result = await prisma.travelPlan.findMany({
     include:{
-      host:true
+      host:true,
+      reviews:true
     }
   });
   return result;
@@ -77,7 +78,11 @@ const getTravelPlanById = async (id: string) => {
     where: { id: id },
     include:{
       host:true,
-      reviews:true
+      reviews:{
+        include:{
+          reviewer:true
+        }
+      },
     }
   });
   return result;
@@ -121,20 +126,22 @@ const updatePlan = async (payload: any, id: string) => {
     where: { id },
     data: updateData,
   });
-  console.log(result)
 
   return result;
 };
 
 
 const deletePlan = async (id: string) => {
-  const result = await prisma.travelPlan.delete({
-    where: {
-      id: id,
-    },
+  await prisma.joinRequest.deleteMany({
+    where: { planId: id },
   });
+  const result = await prisma.travelPlan.delete({
+    where: { id },
+  });
+
   return result;
 };
+
 
 export const travelPlanService = {
   createPlan,
