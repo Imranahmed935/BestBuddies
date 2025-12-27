@@ -33,7 +33,6 @@ const sendRequest = async (applicantId: string, planId: string) => {
     },
   });
 
-  // 🔔 Create notification
   const notification = await prisma.notification.create({
     data: {
       receiverId: plan.hostId,
